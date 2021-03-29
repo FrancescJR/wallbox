@@ -1,0 +1,13 @@
+{
+    "name": "wallbox/wallbox-php-backend-kata",
+    "require": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "description": "PHP Backend Kata",
+    "autoload": {
+        "psr-4": {
+            "Kata\\": "src/",
+            "Kata\\Tests\\": "tests/"
+        }
+    }
+}
