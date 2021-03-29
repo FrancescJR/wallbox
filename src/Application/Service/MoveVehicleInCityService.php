@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Kata\Domain\City\Service;
+namespace Kata\Application\Service;
 
 
 use Kata\Domain\City\City;
@@ -12,22 +12,21 @@ use Kata\Domain\ElectricVehicle\ElectricVehicle;
 
 class MoveVehicleInCityService
 {
-
-    public function moveVehicleInCity(ElectricVehicle $ev, City $city)
+    public function execute(ElectricVehicle $ev, City $city)
     {
         $ev->move();
 
-        if($ev->getPositionGridX()->value() > $city->getLimitX()) {
+        if($ev->getCityPosition()->getPositionX() > $city->getLimitX()) {
             throw new VehicleOutOfRangeException("Can't move out of the limits of the city");
         }
 
-        if($ev->getPositionGridY()->value() > $city->getLimitY()) {
+        if($ev->getCityPosition()->getPositionY() > $city->getLimitY()) {
             throw new VehicleOutOfRangeException("Can't move out of the limits of the city");
         }
 
         foreach($city->getVehicles() as $electricVehicleInCity) {
-            if ($electricVehicleInCity->getPositionGridX()->value() == $ev->getPositionGridX()->value() &&
-                $electricVehicleInCity->getPositionGridY()->value() == $ev->getPositionGridY()->value()) {
+            if ($electricVehicleInCity->getCityPosition()->getPositionX() == $ev->getCityPosition()->getPositionX() &&
+                $electricVehicleInCity->getCityPosition()->getPositionY() == $ev->getCityPosition()->getPositionY()) {
                 throw new PositionAlreadyInUseException("Can't move on an used position.");
             }
         }

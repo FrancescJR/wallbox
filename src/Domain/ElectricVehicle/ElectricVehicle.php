@@ -6,6 +6,7 @@ namespace Kata\Domain\ElectricVehicle;
 
 
 use Kata\Domain\ElectricVehicle\Exception\InvalidTurningDirectionException;
+use Kata\Domain\ElectricVehicle\ValueObject\ElectricVehicleCityPosition;
 use Kata\Domain\ElectricVehicle\ValueObject\ElectricVehicleDirection;
 use Kata\Domain\ElectricVehicle\ValueObject\ElectricVehiclePosition;
 
@@ -19,38 +20,27 @@ class ElectricVehicle
         self::RIGHT
     ];
 
-    private $positionGridX;
-
-    private $positionGridY;
+    private $cityPosition;
 
     private $direction;
 
     public function __construct(
-        ElectricVehiclePosition $positionX,
-        ElectricVehiclePosition $positionY,
+        ElectricVehicleCityPosition $position,
         ElectricVehicleDirection $direction
     )
     {
-        $this->positionGridX = $positionX;
-        $this->positionGridY = $positionY;
+        $this->cityPosition = $position;
         $this->direction = $direction;
     }
 
     /**
-     * @return ElectricVehiclePosition
+     * @return ElectricVehicleCityPosition
      */
-    public function getPositionGridX(): ElectricVehiclePosition
+    public function getCityPosition(): ElectricVehicleCityPosition
     {
-        return $this->positionGridX;
+        return $this->cityPosition;
     }
 
-    /**
-     * @return ElectricVehiclePosition
-     */
-    public function getPositionGridY(): ElectricVehiclePosition
-    {
-        return $this->positionGridY;
-    }
 
     /**
      * @return ElectricVehicleDirection
@@ -62,21 +52,34 @@ class ElectricVehicle
 
     public function move(): void
     {
-        switch ($this->direction) {
+        switch ($this->direction->value()) {
             case ElectricVehicleDirection::NORTH:
-                $this->positionGridY = new ElectricVehiclePosition($this->positionGridY->value() + 1);
+                $this->cityPosition = new ElectricVehicleCityPosition(
+                    $this->cityPosition->getPositionX(),
+                    $this->cityPosition->getPositionY() + 1,
+                );
                 break;
             case ElectricVehicleDirection::SOUTH:
-                $this->positionGridY = new ElectricVehiclePosition($this->positionGridY->value() - 1);
+                $this->cityPosition = new ElectricVehicleCityPosition(
+                    $this->cityPosition->getPositionX(),
+                    $this->cityPosition->getPositionY() - 1,
+                );
                 break;
             case ElectricVehicleDirection::WEST:
-                $this->positionGridX = new ElectricVehiclePosition($this->positionGridX->value() - 1);
+                $this->cityPosition = new ElectricVehicleCityPosition(
+                    $this->cityPosition->getPositionX() - 1,
+                    $this->cityPosition->getPositionY(),
+                );
                 break;
             case ElectricVehicleDirection::EAST:
-                $this->positionGridX = new ElectricVehiclePosition($this->positionGridX->value() + 1);
+                $this->cityPosition = new ElectricVehicleCityPosition(
+                    $this->cityPosition->getPositionX() + 1,
+                    $this->cityPosition->getPositionY(),
+                );
                 break;
         }
     }
+
 
     public function turn(string $turningDirection): void
     {
@@ -94,8 +97,8 @@ class ElectricVehicle
 
     private function turnLeft(): void
     {
-        // this could be done in a smarter way. I am not smart. I like explicit things.
-        switch ($this->direction) {
+        // this could be done in a smarter way. I am not smart. I like explicit things. Easier to fix.
+        switch ($this->direction->value()) {
             case ElectricVehicleDirection::NORTH:
                 $this->direction = new ElectricVehicleDirection(ElectricVehicleDirection::EAST);
                 break;

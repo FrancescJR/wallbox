@@ -36,4 +36,12 @@ class ElectricVehicleDirection
         $this->value = $direction;
     }
 
+    /**
+     * @return string
+     */
+    public function value(): string
+    {
+        return $this->value;
+    }
+
 }
