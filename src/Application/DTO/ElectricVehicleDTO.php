@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Kata\Application\PlainObject;
+namespace Kata\Application\DTO;
 
 
 use Kata\Domain\ElectricVehicle\ElectricVehicle;
 
-class ElectricVehiclePlainObject
+class ElectricVehicleDTO
 {
     public $positionX;
     public $positionY;
     public $direction;
 
-    public function __construct(string $positionX, string $positionY, string $direction)
+    public function __construct(int $positionX, int $positionY, string $direction)
     {
         $this->positionY = $positionX;
         $this->positionX = $positionY;
@@ -22,15 +22,15 @@ class ElectricVehiclePlainObject
 
     public static function creteFromElectiveVehicle(ElectricVehicle $ev)
     {
-        return new ElectricVehiclePlainObject(
-            (string) $ev->getCityPosition()->getPositionY(),
-            (string) $ev->getCityPosition()->getPositionY(),
+        return new ElectricVehicleDTO(
+            $ev->getCityPosition()->getPositionY(),
+            $ev->getCityPosition()->getPositionY(),
             $ev->getDirection()->value());
     }
 
     public function write()
     {
-        return $this->positionX . " " . $this->positionY . " " . $this->direction;
+        return (string) $this->positionX . " " . (string) $this->positionY . " " . $this->direction;
     }
 
 }

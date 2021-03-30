@@ -6,14 +6,14 @@ namespace Kata\Application\UseCase;
 
 
 use Kata\Application\Command\NavigateElectricVehiclesCommand;
-use Kata\Application\PlainObject\CarInstruction;
-use Kata\Application\PlainObject\ElectricVehiclePlainObject;
+use Kata\Application\DTO\CarPairInstruction;
+use Kata\Application\DTO\ElectricVehicleDTO;
 use Kata\Application\Service\CreateCityService;
 use Kata\Domain\ElectricVehicle\ElectricVehicleFactoryInterface;
 use Kata\Domain\Shared\Service\DeployVehicleInCityService;
 use Kata\Domain\Shared\Service\MoveVehicleInCityService;
 
-class NavigateElectricVehiclesUseCase
+class NavigateElectricVehiclesUseCase implements NavigateElectricVehiclesUseCaseInterface
 {
     public const MOVE = 'M';
 
@@ -37,18 +37,22 @@ class NavigateElectricVehiclesUseCase
         $this->moveVehicleInCityService = $moveVehicleInCityService;
     }
 
-    public function execute(NavigateElectricVehiclesCommand $vehiclesCommand): array
+    /**
+     * @param NavigateElectricVehiclesCommand $vehiclesCommand
+     * @return ElectricVehicleDTO[]
+     */
+    public function navigateVehicles(NavigateElectricVehiclesCommand $vehiclesCommand): array
     {
         $city = $this->cityService->execute(
-            $vehiclesCommand->cityLimitX,
-            $vehiclesCommand->cityLimitY
+            $vehiclesCommand->getCityDTO()->cityLimitX,
+            $vehiclesCommand->getCityDTO()->cityLimitY
         );
 
         $finalVehiclePositions = [];
 
-        /** @var  $instruction  CarInstruction */
-        foreach($vehiclesCommand->carInstructions as $carInstruction) {
-            $electricVehicle =$this->electricVehicleFactory->createFromPO($carInstruction->deployPosition);
+        /** @var  $instruction  CarPairInstruction */
+        foreach($vehiclesCommand->getCarInstructions() as $carPairInstruction) {
+            $electricVehicle =$this->electricVehicleFactory->createFromPO($carPairInstruction->deployPosition);
 
             $this->deployVehicleInCityService->execute($electricVehicle, $city);
             foreach ($carInstruction->instructionSet as $driveInstruction) {
@@ -58,7 +62,7 @@ class NavigateElectricVehiclesUseCase
                     $electricVehicle->turn($driveInstruction);
                 }
             }
-            $finalVehiclePositions[] = ElectricVehiclePlainObject::creteFromElectiveVehicle($electricVehicle);
+            $finalVehiclePositions[] = ElectricVehicleDTO::creteFromElectiveVehicle($electricVehicle);
         }
 
         return $finalVehiclePositions;

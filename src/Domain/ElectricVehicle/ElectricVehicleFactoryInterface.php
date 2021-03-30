@@ -4,10 +4,10 @@
 namespace Kata\Domain\ElectricVehicle;
 
 
-use Kata\Application\PlainObject\ElectricVehiclePlainObject;
+use Kata\Application\DTO\ElectricVehicleDTO;
 
 interface ElectricVehicleFactoryInterface
 {
-    public function createFromPO(ElectricVehiclePlainObject $evPO): ElectricVehicle;
+    public function createFromPO(ElectricVehicleDTO $evPO): ElectricVehicle;
 
 }

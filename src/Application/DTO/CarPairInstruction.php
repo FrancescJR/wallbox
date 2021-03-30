@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Kata\Application\PlainObject;
+namespace Kata\Application\DTO;
 
 
-class CarInstruction
+class CarPairInstruction
 {
     public $deployPosition;
     public $instructionSet;
 
-    public function __construct(ElectricVehiclePlainObject $evPO, array $instructionSet)
+    public function __construct(ElectricVehicleDTO $evPO, array $instructionSet)
     {
         $this->deployPosition = $evPO;
         $this->instructionSet = $instructionSet;

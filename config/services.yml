@@ -1,0 +1,31 @@
+services:
+
+  infrastructure.service.create_command_builder:
+    class: Kata\Infrastructure\Service\CreateNavigateEVCommandFromStdInService
+
+  infrastructure.factory.electric_vehicle_factory:
+    class: Kata\Infrastructure\Factory\ElectricVehicleFactory
+
+  infrastructure.io.navigate_electric_vehicles_cli:
+    class: Kata\Infrastructure\IO\NavigateElectricVehiclesCLI
+    arguments:
+      - '@application.use_case.navigate_electric_vehicles'
+      - '@infrastructure.service.create_command_builder'
+
+  application.service.create_city:
+    class: Kata\Application\Service\CreateCityService
+
+  application.use_case.navigate_electric_vehicles:
+    class: Kata\Application\UseCase\NavigateElectricVehiclesUseCase
+    arguments:
+      - '@application.service.create_city'
+      - '@infrastructure.factory.electric_vehicle_factory'
+      - '@domain.service.deploy_vehicle_in_city'
+      - '@domain.service.move_vehicle_in_city'
+
+  domain.service.deploy_vehicle_in_city:
+    class: Kata\Domain\Shared\Service\DeployVehicleInCityService
+
+  domain.service.move_vehicle_in_city:
+    class: Kata\Domain\Shared\Service\MoveVehicleInCityService
+
