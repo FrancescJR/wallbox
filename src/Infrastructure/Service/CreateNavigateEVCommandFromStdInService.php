@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Kata\Infrastructure\Service;
 
-
 use Kata\Application\Command\CreateNavigateCommandInterface;
 use Kata\Application\Command\NavigateElectricVehiclesCommand;
 use Kata\Application\DTO\CarPairInstruction;
@@ -22,7 +21,7 @@ class CreateNavigateEVCommandFromStdInService implements CreateNavigateCommandIn
      */
     public function createNavigateElectricVehiclesCommand($input): NavigateElectricVehiclesCommand
     {
-        if ( ! is_array($input)) {
+        if (! is_array($input)) {
             throw new InfrastructureException("This implementation of the builder needs input to be array");
         }
 
@@ -50,7 +49,6 @@ class CreateNavigateEVCommandFromStdInService implements CreateNavigateCommandIn
         } catch (\Throwable $exception) {
             throw new InfrastructureException("Could not parse input: " . $exception->getMessage());
         }
-
     }
 
     private function getCityDTO(string $input):CityDTO
@@ -62,7 +60,6 @@ class CreateNavigateEVCommandFromStdInService implements CreateNavigateCommandIn
             $cityLimits[0],
             $cityLimits[1]
         );
-
     }
 
     private function getCarPairInstruction(string $carPart, string $instructionPart): CarPairInstruction
@@ -89,5 +86,4 @@ class CreateNavigateEVCommandFromStdInService implements CreateNavigateCommandIn
         // TODO check parsing line etc. and throw controlled exceptions
         return str_split($instructions);
     }
-
 }

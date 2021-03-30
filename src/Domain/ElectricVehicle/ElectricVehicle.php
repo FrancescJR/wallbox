@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Kata\Domain\ElectricVehicle;
 
-
 use Kata\Domain\ElectricVehicle\Exception\InvalidTurningDirectionException;
 use Kata\Domain\ElectricVehicle\ValueObject\ElectricVehicleCityPosition;
 use Kata\Domain\ElectricVehicle\ValueObject\ElectricVehicleDirection;
-
 
 class ElectricVehicle
 {
@@ -27,8 +25,7 @@ class ElectricVehicle
     public function __construct(
         ElectricVehicleCityPosition $position,
         ElectricVehicleDirection $direction
-    )
-    {
+    ) {
         $this->cityPosition = $position;
         $this->direction = $direction;
     }
@@ -131,10 +128,4 @@ class ElectricVehicle
                 break;
         }
     }
-
-
-
-
-
-
 }

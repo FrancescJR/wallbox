@@ -22,7 +22,7 @@ class NavigateElectricVehiclesCLI
     {
         try {
             $input = [];
-            while($line = fgets(STDIN)){
+            while ($line = fgets(STDIN)) {
                 $input[]  = $line;
             }
             $navigateCommand = $this->commandBuilder->createNavigateElectricVehiclesCommand($input);
@@ -30,6 +30,5 @@ class NavigateElectricVehiclesCLI
         } catch (\Exception $e) {
             echo $e->getMessage();
         }
-
     }
 }

@@ -17,5 +17,3 @@ $loader->load('config/services.yaml');
 $navigateElectricCLI = $containerBuilder->get('infrastructure.io.navigate_electric_vehicles_cli');
 
 $navigateElectricCLI->execute();
-
-

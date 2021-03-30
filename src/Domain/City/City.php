@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Kata\Domain\City;
 
-
 use Kata\Domain\City\ValueObject\CityLimit;
 use Kata\Domain\ElectricVehicle\ElectricVehicle;
-
 
 class City
 {
@@ -52,5 +50,4 @@ class City
     {
         $this->vehicles[] = $ev;
     }
-
 }

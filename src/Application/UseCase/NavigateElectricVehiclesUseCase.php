@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Kata\Application\UseCase;
 
-
 use Kata\Application\Command\NavigateElectricVehiclesCommand;
 use Kata\Application\DTO\CarPairInstruction;
 use Kata\Application\DTO\ElectricVehicleDTO;
@@ -51,7 +50,7 @@ class NavigateElectricVehiclesUseCase implements NavigateElectricVehiclesUseCase
         $finalVehiclePositions = [];
 
         /** @var  $instruction  CarPairInstruction */
-        foreach($vehiclesCommand->getCarInstructions() as $carPairInstruction) {
+        foreach ($vehiclesCommand->getCarInstructions() as $carPairInstruction) {
             $electricVehicle =$this->electricVehicleFactory->createFromPO($carPairInstruction->deployPosition);
 
             $this->deployVehicleInCityService->execute($electricVehicle, $city);
@@ -66,7 +65,5 @@ class NavigateElectricVehiclesUseCase implements NavigateElectricVehiclesUseCase
         }
 
         return $finalVehiclePositions;
-
     }
-
 }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Kata\Domain\ElectricVehicle\ValueObject;
 
-
 use Kata\Domain\ElectricVehicle\Exception\InvalidElectricVehiclePositionException;
 
 class ElectricVehicleCityPosition
@@ -27,8 +26,4 @@ class ElectricVehicleCityPosition
     {
         return $this->positionY;
     }
-
-
-
-
 }

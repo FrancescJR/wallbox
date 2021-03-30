@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Kata\Application\DTO;
 
-
 class CarPairInstruction
 {
     public $deployPosition;
@@ -15,5 +14,4 @@ class CarPairInstruction
         $this->deployPosition = $evPO;
         $this->instructionSet = $instructionSet;
     }
-
 }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Kata\Application\DTO;
 
-
 use Kata\Domain\ElectricVehicle\ElectricVehicle;
 
 class ElectricVehicleDTO
@@ -25,12 +24,12 @@ class ElectricVehicleDTO
         return new ElectricVehicleDTO(
             $ev->getCityPosition()->getPositionY(),
             $ev->getCityPosition()->getPositionY(),
-            $ev->getDirection()->value());
+            $ev->getDirection()->value()
+        );
     }
 
     public function write()
     {
         return (string) $this->positionX . " " . (string) $this->positionY . " " . $this->direction;
     }
-
 }

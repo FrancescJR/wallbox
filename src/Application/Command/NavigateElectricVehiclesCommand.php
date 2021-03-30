@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Kata\Application\Command;
 
-
 use Kata\Application\DTO\CarPairInstruction;
 use Kata\Application\DTO\CityDTO;
 
@@ -36,8 +35,4 @@ class NavigateElectricVehiclesCommand
     {
         return $this->carInstructions;
     }
-
-
-
-
 }

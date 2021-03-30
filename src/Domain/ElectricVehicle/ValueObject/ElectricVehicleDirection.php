@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Kata\Domain\ElectricVehicle\ValueObject;
 
-
 use Kata\Domain\ElectricVehicle\Exception\InvalidElectricVehicleDirectionException;
 
 class ElectricVehicleDirection
@@ -43,5 +42,4 @@ class ElectricVehicleDirection
     {
         return $this->value;
     }
-
 }

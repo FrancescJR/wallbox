@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Kata\Application\DTO;
 
-
 class CityDTO
 {
 
@@ -23,5 +22,4 @@ class CityDTO
         $this->cityLimitX = $cityLimitX;
         $this->cityLimitY = $cityLimitY;
     }
-
 }

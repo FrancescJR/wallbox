@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Kata\Application\Service;
 
-
 use Kata\Domain\City\City;
 use Kata\Domain\City\ValueObject\CityLimit;
 
@@ -17,5 +16,4 @@ class CreateCityService
             new CityLimit($limitY)
         );
     }
-
 }
