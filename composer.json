@@ -1,7 +1,10 @@
 {
     "name": "wallbox/wallbox-php-backend-kata",
     "require": {
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^9.5",
+        "symfony/config": "^5.1",
+        "symfony/dependency-injection": "^5.1",
+        "symfony/yaml": "^5.1"
     },
     "description": "PHP Backend Kata",
     "autoload": {

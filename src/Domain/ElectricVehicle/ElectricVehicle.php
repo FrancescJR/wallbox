@@ -8,7 +8,7 @@ namespace Kata\Domain\ElectricVehicle;
 use Kata\Domain\ElectricVehicle\Exception\InvalidTurningDirectionException;
 use Kata\Domain\ElectricVehicle\ValueObject\ElectricVehicleCityPosition;
 use Kata\Domain\ElectricVehicle\ValueObject\ElectricVehicleDirection;
-use Kata\Domain\ElectricVehicle\ValueObject\ElectricVehiclePosition;
+
 
 class ElectricVehicle
 {

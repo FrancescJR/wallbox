@@ -13,11 +13,19 @@ class ElectricVehiclePlainObject
     public $positionY;
     public $direction;
 
-    public function __construct(ElectricVehicle $ev)
+    public function __construct(string $positionX, string $positionY, string $direction)
     {
-        $this->positionY = (string) $ev->getCityPosition()->getPositionY();
-        $this->positionX = (string) $ev->getCityPosition()->getPositionX();
-        $this->direction = $ev->getDirection()->value();
+        $this->positionY = $positionX;
+        $this->positionX = $positionY;
+        $this->direction = $direction;
+    }
+
+    public static function creteFromElectiveVehicle(ElectricVehicle $ev)
+    {
+        return new ElectricVehiclePlainObject(
+            (string) $ev->getCityPosition()->getPositionY(),
+            (string) $ev->getCityPosition()->getPositionY(),
+            $ev->getDirection()->value());
     }
 
     public function write()

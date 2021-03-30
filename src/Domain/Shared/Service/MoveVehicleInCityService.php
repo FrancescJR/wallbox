@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Kata\Application\Service;
+namespace Kata\Domain\Shared\Service;
 
 
 use Kata\Domain\City\City;
