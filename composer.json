@@ -10,7 +10,8 @@
     "autoload": {
         "psr-4": {
             "Kata\\": "src/",
-            "Kata\\Tests\\": "tests/"
+            "Kata\\Tests\\": "tests/",
+            "Kata\\Stubs\\": "stubs/"
         }
     }
 }

@@ -52,7 +52,6 @@ class ElectricVehicle
         $this->cityPosition = $cityPosition;
     }
 
-
     public function getFuturePosition(): ElectricVehicleCityPosition
     {
         switch ($this->direction->value()) {
@@ -79,7 +78,6 @@ class ElectricVehicle
         }
     }
 
-
     public function turn(string $turningDirection): void
     {
         switch ($turningDirection) {
@@ -99,10 +97,10 @@ class ElectricVehicle
         // this could be done in a smarter way. I am not smart. I like explicit things. Easier to fix.
         switch ($this->direction->value()) {
             case ElectricVehicleDirection::NORTH:
-                $this->direction = new ElectricVehicleDirection(ElectricVehicleDirection::EAST);
+                $this->direction = new ElectricVehicleDirection(ElectricVehicleDirection::WEST);
                 break;
             case ElectricVehicleDirection::SOUTH:
-                $this->direction = new ElectricVehicleDirection(ElectricVehicleDirection::WEST);
+                $this->direction = new ElectricVehicleDirection(ElectricVehicleDirection::EAST);
                 break;
             case ElectricVehicleDirection::WEST:
                 $this->direction = new ElectricVehicleDirection(ElectricVehicleDirection::SOUTH);
@@ -115,12 +113,12 @@ class ElectricVehicle
 
     private function turnRight(): void
     {
-        switch ($this->direction) {
+        switch ($this->direction->value()) {
             case ElectricVehicleDirection::NORTH:
-                $this->direction = new ElectricVehicleDirection(ElectricVehicleDirection::WEST);
+                $this->direction = new ElectricVehicleDirection(ElectricVehicleDirection::EAST);
                 break;
             case ElectricVehicleDirection::SOUTH:
-                $this->direction = new ElectricVehicleDirection(ElectricVehicleDirection::EAST);
+                $this->direction = new ElectricVehicleDirection(ElectricVehicleDirection::WEST);
                 break;
             case ElectricVehicleDirection::WEST:
                 $this->direction = new ElectricVehicleDirection(ElectricVehicleDirection::NORTH);
