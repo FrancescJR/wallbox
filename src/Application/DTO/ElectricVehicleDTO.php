@@ -19,17 +19,12 @@ class ElectricVehicleDTO
         $this->direction = $direction;
     }
 
-    public static function creteFromElectiveVehicle(ElectricVehicle $ev)
+    public static function creteFromElectiveVehicle(ElectricVehicle $ev): ElectricVehicleDTO
     {
         return new ElectricVehicleDTO(
             $ev->getCityPosition()->getPositionY(),
             $ev->getCityPosition()->getPositionY(),
             $ev->getDirection()->value()
         );
-    }
-
-    public function write()
-    {
-        return (string) $this->positionX . " " . (string) $this->positionY . " " . $this->direction;
     }
 }

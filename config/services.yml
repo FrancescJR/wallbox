@@ -23,9 +23,16 @@ services:
       - '@domain.service.deploy_vehicle_in_city'
       - '@domain.service.move_vehicle_in_city'
 
+  domain.service.check_city_position_allowed:
+    class: Kata\Domain\Shared\Service\EVCityPositionAllowedService
+
   domain.service.deploy_vehicle_in_city:
     class: Kata\Domain\Shared\Service\DeployVehicleInCityService
+    arguments:
+      - '@domain.service.check_city_position_allowed'
 
   domain.service.move_vehicle_in_city:
     class: Kata\Domain\Shared\Service\MoveVehicleInCityService
+    arguments:
+      - '@domain.service.check_city_position_allowed'
 

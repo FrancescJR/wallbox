@@ -6,6 +6,7 @@ namespace Kata\Infrastructure\IO;
 
 use Kata\Application\Command\CreateNavigateCommandInterface;
 use Kata\Application\UseCase\NavigateElectricVehiclesUseCaseInterface;
+use Kata\Infrastructure\Presenter\ElectricVehicleListStdOutPresenter;
 
 class NavigateElectricVehiclesCLI
 {
@@ -21,18 +22,20 @@ class NavigateElectricVehiclesCLI
     public function execute()
     {
         try {
+            $electricVehicleListPresenter = new ElectricVehicleListStdOutPresenter();
+
             $input = [];
             while ($line = fgets(STDIN)) {
                 $input[]  = $line;
             }
+
             $navigateCommand = $this->commandBuilder->createNavigateElectricVehiclesCommand($input);
 
-            $evEndingPositions = $this->navigateElectricVehicles->navigateVehicles($navigateCommand);
-            /** @var $endingPosition \Kata\Application\DTO\ElectricVehicleDTO */
-            foreach($evEndingPositions as $endingPosition) {
-                echo "printing a car";
-                echo $endingPosition->write();
-            }
+            $this->navigateElectricVehicles->navigateVehicles(
+                $navigateCommand,
+                $electricVehicleListPresenter
+            );
+
         } catch (\Exception $e) {
             echo $e->getMessage();
         }

@@ -7,6 +7,7 @@ namespace Kata\Application\UseCase;
 use Kata\Application\Command\NavigateElectricVehiclesCommand;
 use Kata\Application\DTO\CarPairInstruction;
 use Kata\Application\DTO\ElectricVehicleDTO;
+use Kata\Application\Presenter\ElectricVehiclesListPresenter;
 use Kata\Application\Service\CreateCityService;
 use Kata\Domain\ElectricVehicle\ElectricVehicleFactoryInterface;
 use Kata\Domain\Shared\Service\DeployVehicleInCityService;
@@ -40,7 +41,10 @@ class NavigateElectricVehiclesUseCase implements NavigateElectricVehiclesUseCase
      * @param NavigateElectricVehiclesCommand $vehiclesCommand
      * @return ElectricVehicleDTO[]
      */
-    public function navigateVehicles(NavigateElectricVehiclesCommand $vehiclesCommand): array
+    public function navigateVehicles(
+        NavigateElectricVehiclesCommand $vehiclesCommand,
+        ElectricVehiclesListPresenter $presenter
+    ): array
     {
         $city = $this->cityService->execute(
             $vehiclesCommand->getCityDTO()->cityLimitX,
@@ -66,6 +70,6 @@ class NavigateElectricVehiclesUseCase implements NavigateElectricVehiclesUseCase
             $finalVehiclePositions[] = ElectricVehicleDTO::creteFromElectiveVehicle($electricVehicle);
         }
 
-        return $finalVehiclePositions;
+        return $presenter->write($finalVehiclePositions);
     }
 }
