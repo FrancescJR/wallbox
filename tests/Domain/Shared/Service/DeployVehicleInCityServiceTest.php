@@ -7,15 +7,15 @@ namespace Kata\Tests\Domain\Shared\Service;
 
 use Kata\Domain\City\Exception\PositionAlreadyInUseException;
 use Kata\Domain\ElectricVehicle\ValueObject\ElectricVehicleDirection;
+use Kata\Domain\Shared\Service\DeployVehicleInCityService;
 use Kata\Domain\Shared\Service\EVCityPositionAllowedService;
-use Kata\Domain\Shared\Service\MoveVehicleInCityService;
 use Kata\Stubs\Domain\City\CityStub;
 use Kata\Stubs\Domain\ElectricVehicle\ElectricVehicleStub;
 use Kata\Stubs\Domain\ElectricVehicle\ValueObject\ElectricVehicleCityPositionStub;
 use Kata\Stubs\Domain\ElectricVehicle\ValueObject\ElectricVehicleDirectionStub;
 use PHPUnit\Framework\TestCase;
 
-class MoveVehicleInCityServiceTest extends TestCase
+class DeployVehicleInCityServiceTest extends TestCase
 {
     private $city;
 
@@ -25,25 +25,46 @@ class MoveVehicleInCityServiceTest extends TestCase
     {
         $this->city = CityStub::create(20,20);
         $checkerService = self::createMock(EVCityPositionAllowedService::class);
-        $moveVehicleInCityService = new MoveVehicleInCityService($checkerService);
-        $this->service =  $moveVehicleInCityService;
+        $deployService = new DeployVehicleInCityService($checkerService);
+        $this->service =  $deployService;
     }
 
-    public function testMove(): void
+    public function testDeploy(): void
     {
 
         $ev = ElectricVehicleStub::create(
             ElectricVehicleCityPositionStub::create(10,10),
             ElectricVehicleDirectionStub::create(ElectricVehicleDirection::NORTH)
         );
-
-        $this->city->addVehicle($ev);
-
         $this->service->execute($ev, $this->city);
 
-        self::assertEquals(11, $ev->getCityPosition()->getPositionY());
-        self::assertEquals(10, $ev->getCityPosition()->getPositionX());
-        self::assertEquals(ElectricVehicleDirection::NORTH, $ev->getDirection()->value());
+        self::assertCount(1, $this->city->getVehicles());
+
+        $ev = ElectricVehicleStub::create(
+            ElectricVehicleCityPositionStub::create(5,10),
+            ElectricVehicleDirectionStub::create(ElectricVehicleDirection::NORTH)
+        );
+        $this->service->execute($ev, $this->city);
+
+        self::assertCount(2, $this->city->getVehicles());
+
+
+        $ev = ElectricVehicleStub::create(
+            ElectricVehicleCityPositionStub::create(10,5),
+            ElectricVehicleDirectionStub::create(ElectricVehicleDirection::NORTH)
+        );
+        $this->service->execute($ev, $this->city);
+
+        self::assertCount(3, $this->city->getVehicles());
+
+
+        $ev = ElectricVehicleStub::create(
+            ElectricVehicleCityPositionStub::create(2,2),
+            ElectricVehicleDirectionStub::create(ElectricVehicleDirection::NORTH)
+        );
+        $this->service->execute($ev, $this->city);
+
+        self::assertCount(4, $this->city->getVehicles());
     }
 
     public function testOccupiedPosition(): void
@@ -53,20 +74,17 @@ class MoveVehicleInCityServiceTest extends TestCase
             ElectricVehicleDirectionStub::create(ElectricVehicleDirection::NORTH)
         );
 
-        $this->city->addVehicle($ev);
+        $this->service->execute($ev, $this->city);
 
         $ev2 = ElectricVehicleStub::create(
-            ElectricVehicleCityPositionStub::create(10,9),
+            ElectricVehicleCityPositionStub::create(10,10),
             ElectricVehicleDirectionStub::create(ElectricVehicleDirection::NORTH)
         );
-
-        $this->city->addVehicle($ev2);
 
         self::expectException(PositionAlreadyInUseException::class);
 
         $this->service->execute($ev2, $this->city);
 
     }
-
 
 }

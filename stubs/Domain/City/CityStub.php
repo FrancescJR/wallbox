@@ -10,6 +10,14 @@ use Kata\Stubs\Domain\City\ValueObject\CityLimitStub;
 
 class CityStub
 {
+    public static function create(int $positionX, int $positionY): City
+    {
+        return new City(
+            CityLimitStub::create($positionX),
+            CityLimitStub::create($positionY)
+        );
+    }
+
     public static function random(): City
     {
         return new City(
