@@ -1,3 +1,33 @@
+# Instructions
+
+## Requisites
+
+You will need to have PPH and composer installed
+
+## Installation
+
+execute `composer install`
+
+## Usage
+
+execute `php application.php`
+
+Then write on the std in line by line, (press return key per line).
+After typing the last line, make sure you press for the last time return key and stop inputting
+by typing ctrl+d
+
+The result will appear on the terminal.
+
+## Testing
+
+execute `vendor/phpunit/phpunit/phpunit` 
+
+
+
+
+
+#Original README
+
 # Backend Challenge
 
 ## Learning Competencies
