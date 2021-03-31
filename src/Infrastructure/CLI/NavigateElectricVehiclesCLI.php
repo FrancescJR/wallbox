@@ -39,7 +39,7 @@ class NavigateElectricVehiclesCLI
             );
 
             foreach ($output as $value) {
-                echo $value;
+                echo $value."\n";
             }
 
         } catch (DomainException $e) {

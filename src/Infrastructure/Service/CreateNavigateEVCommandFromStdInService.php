@@ -84,6 +84,6 @@ class CreateNavigateEVCommandFromStdInService implements CreateNavigateCommandIn
     private function getInstructions(string $instructions): array
     {
         // TODO check parsing line etc. and throw controlled exceptions
-        return str_split($instructions);
+        return str_split(trim($instructions));
     }
 }
