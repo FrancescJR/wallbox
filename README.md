@@ -22,7 +22,14 @@ The result will appear on the terminal.
 
 execute `vendor/phpunit/phpunit/phpunit` 
 
+#### Todos
 
+I would like to have used strategy pattern for the reading of the instructions, but since I didnt go for PHP8 (I thought i
+it would take me too much time, but maybe I was wrong).
+
+A lots of tests for the input.
+
+Try things with the presenter
 
 
 
