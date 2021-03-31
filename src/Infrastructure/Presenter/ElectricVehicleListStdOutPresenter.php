@@ -13,12 +13,13 @@ class ElectricVehicleListStdOutPresenter implements ElectricVehiclesListPresente
 
     public function write(array $electricVehiclesDTOList): array
     {
-        $result = [];
+        $resultList = [];
         /** @var  $electricVehicleDTO ElectricVehicleDTO */
         foreach($electricVehiclesDTOList as $electricVehicleDTO) {
-            $result =  (string) $electricVehicleDTO->positionX . " " . (string) $electricVehicleDTO->positionY . " " . $electricVehicleDTO->direction."\n";
-            echo $result;
+            $output =  (string) $electricVehicleDTO->positionX . " " . (string) $electricVehicleDTO->positionY . " " . $electricVehicleDTO->direction;
+            echo $output;
+            $resultList [] = $output;
         }
-        return $result;
+        return $resultList;
     }
 }

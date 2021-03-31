@@ -14,15 +14,15 @@ class ElectricVehicleDTO
 
     public function __construct(int $positionX, int $positionY, string $direction)
     {
-        $this->positionY = $positionX;
-        $this->positionX = $positionY;
+        $this->positionX = $positionX;
+        $this->positionY = $positionY;
         $this->direction = $direction;
     }
 
     public static function creteFromElectiveVehicle(ElectricVehicle $ev): ElectricVehicleDTO
     {
         return new ElectricVehicleDTO(
-            $ev->getCityPosition()->getPositionY(),
+            $ev->getCityPosition()->getPositionX(),
             $ev->getCityPosition()->getPositionY(),
             $ev->getDirection()->value()
         );
