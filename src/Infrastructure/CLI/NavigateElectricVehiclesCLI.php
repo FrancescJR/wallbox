@@ -33,10 +33,14 @@ class NavigateElectricVehiclesCLI
 
             $navigateCommand = $this->commandBuilder->createNavigateElectricVehiclesCommand($input);
 
-            $this->navigateElectricVehicles->navigateVehicles(
+            $output = $this->navigateElectricVehicles->navigateVehicles(
                 $navigateCommand,
                 $electricVehicleListPresenter
             );
+
+            foreach ($output as $value) {
+                echo $value;
+            }
 
         } catch (DomainException $e) {
             echo "Could not autonavigate: " . $e->getMessage();

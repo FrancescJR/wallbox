@@ -15,13 +15,18 @@ services:
   application.service.create_city:
     class: Kata\Application\Service\CreateCityService
 
+  application.service.navigate_by_instructions:
+    class: Kata\Application\Service\InterpretNavigationInstructionService
+    arguments:
+      - '@domain.service.move_vehicle_in_city'
+
   application.use_case.navigate_electric_vehicles:
     class: Kata\Application\UseCase\NavigateElectricVehiclesUseCase
     arguments:
       - '@application.service.create_city'
       - '@infrastructure.factory.electric_vehicle_factory'
       - '@domain.service.deploy_vehicle_in_city'
-      - '@domain.service.navigate_by_instructions'
+      - '@application.service.navigate_by_instructions'
 
   domain.service.check_city_position_allowed:
     class: Kata\Domain\Shared\Service\EVCityPositionAllowedService
@@ -36,7 +41,3 @@ services:
     arguments:
       - '@domain.service.check_city_position_allowed'
 
-  domain.service.navigate_by_instructions:
-    class: Kata\Domain\Shared\Service\InterpretNavigationInstructionService
-    arguments:
-      - '@domain.service.move_vehicle_in_city'

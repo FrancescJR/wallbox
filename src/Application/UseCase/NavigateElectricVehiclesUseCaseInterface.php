@@ -14,7 +14,7 @@ interface NavigateElectricVehiclesUseCaseInterface
     /**
      * @param NavigateElectricVehiclesCommand $vehiclesCommand
      * @param ElectricVehiclesListPresenter $presenter
-     * @return ElectricVehicleDTO[]
+     * @return array
      *
      * @throws DomainException
      */

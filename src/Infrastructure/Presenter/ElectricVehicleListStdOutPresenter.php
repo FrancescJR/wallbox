@@ -17,7 +17,6 @@ class ElectricVehicleListStdOutPresenter implements ElectricVehiclesListPresente
         /** @var  $electricVehicleDTO ElectricVehicleDTO */
         foreach($electricVehiclesDTOList as $electricVehicleDTO) {
             $output =  (string) $electricVehicleDTO->positionX . " " . (string) $electricVehicleDTO->positionY . " " . $electricVehicleDTO->direction;
-            echo $output;
             $resultList [] = $output;
         }
         return $resultList;
