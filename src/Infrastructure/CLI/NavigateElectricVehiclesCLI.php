@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Kata\Infrastructure\IO;
+namespace Kata\Infrastructure\CLI;
 
 use Kata\Application\Command\CreateNavigateCommandInterface;
 use Kata\Application\UseCase\NavigateElectricVehiclesUseCaseInterface;
+use Kata\Domain\Exception\DomainException;
+use Kata\Infrastructure\Exception\InfrastructureException;
 use Kata\Infrastructure\Presenter\ElectricVehicleListStdOutPresenter;
 
 class NavigateElectricVehiclesCLI
@@ -36,8 +38,10 @@ class NavigateElectricVehiclesCLI
                 $electricVehicleListPresenter
             );
 
-        } catch (\Exception $e) {
+        } catch (DomainException $e) {
             echo $e->getMessage();
+        } catch (InfrastructureException $e) {
+
         }
     }
 }

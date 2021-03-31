@@ -11,14 +11,14 @@ use Kata\Application\Presenter\ElectricVehiclesListPresenter;
 class ElectricVehicleListStdOutPresenter implements ElectricVehiclesListPresenter
 {
 
-    /**
-     * @param array $electricVehiclesDTOList
-     */
-    public function write(array $electricVehiclesDTOList): void
+    public function write(array $electricVehiclesDTOList): array
     {
+        $result = [];
         /** @var  $electricVehicleDTO ElectricVehicleDTO */
         foreach($electricVehiclesDTOList as $electricVehicleDTO) {
-            echo (string) $electricVehicleDTO->positionX . " " . (string) $electricVehicleDTO->positionY . " " . $electricVehicleDTO->direction;
+            $result =  (string) $electricVehicleDTO->positionX . " " . (string) $electricVehicleDTO->positionY . " " . $electricVehicleDTO->direction."\n";
+            echo $result;
         }
+        return $result;
     }
 }

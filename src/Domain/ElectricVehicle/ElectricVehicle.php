@@ -78,6 +78,10 @@ class ElectricVehicle
         }
     }
 
+    /**
+     * @param string $turningDirection
+     * @throws InvalidTurningDirectionException
+     */
     public function turn(string $turningDirection): void
     {
         switch ($turningDirection) {

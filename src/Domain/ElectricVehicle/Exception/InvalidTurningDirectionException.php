@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Kata\Domain\ElectricVehicle\Exception;
 
-class InvalidTurningDirectionException extends \InvalidArgumentException
+use Kata\Domain\Exception\DomainException;
+
+class InvalidTurningDirectionException extends DomainException
 {
 }

@@ -10,6 +10,7 @@ use Kata\Application\DTO\ElectricVehicleDTO;
 use Kata\Application\Presenter\ElectricVehiclesListPresenter;
 use Kata\Application\Service\CreateCityService;
 use Kata\Domain\ElectricVehicle\ElectricVehicleFactoryInterface;
+use Kata\Domain\Exception\DomainException;
 use Kata\Domain\Shared\Service\DeployVehicleInCityService;
 use Kata\Domain\Shared\Service\MoveVehicleInCityService;
 
@@ -30,7 +31,8 @@ class NavigateElectricVehiclesUseCase implements NavigateElectricVehiclesUseCase
         ElectricVehicleFactoryInterface $electricVehicleFactory,
         DeployVehicleInCityService $deployVehicleInCityService,
         MoveVehicleInCityService $moveVehicleInCityService
-    ) {
+    )
+    {
         $this->cityService = $cityService;
         $this->electricVehicleFactory = $electricVehicleFactory;
         $this->deployVehicleInCityService = $deployVehicleInCityService;
@@ -39,7 +41,10 @@ class NavigateElectricVehiclesUseCase implements NavigateElectricVehiclesUseCase
 
     /**
      * @param NavigateElectricVehiclesCommand $vehiclesCommand
+     * @param ElectricVehiclesListPresenter $presenter
      * @return ElectricVehicleDTO[]
+     *
+     * @throws DomainException
      */
     public function navigateVehicles(
         NavigateElectricVehiclesCommand $vehiclesCommand,

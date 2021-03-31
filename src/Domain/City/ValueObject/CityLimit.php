@@ -12,6 +12,11 @@ class CityLimit
 
     private $value;
 
+    /**
+     * CityLimit constructor.
+     * @param int $value
+     * @throws InvalidCitySizeException
+     */
     public function __construct(int $value)
     {
         $this->setValue($value);
@@ -22,6 +27,10 @@ class CityLimit
         return $this->value;
     }
 
+    /**
+     * @param int $value
+     * @throws InvalidCitySizeException
+     */
     private function setValue(int $value)
     {
         if (self::MINIMUM_LIMIT > $value) {

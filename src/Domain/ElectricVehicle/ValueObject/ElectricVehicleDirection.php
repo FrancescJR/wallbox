@@ -22,11 +22,20 @@ class ElectricVehicleDirection
 
     private $value;
 
+    /**
+     * ElectricVehicleDirection constructor.
+     * @param string $direction
+     * @throws InvalidElectricVehicleDirectionException
+     */
     public function __construct(string $direction)
     {
         $this->setDirection($direction);
     }
 
+    /**
+     * @param string $direction
+     * @throws InvalidElectricVehicleDirectionException
+     */
     private function setDirection(string $direction)
     {
         if (!in_array($direction, self::DIRECTIONS_ALLOWED)) {

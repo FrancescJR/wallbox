@@ -7,6 +7,7 @@ namespace Kata\Application\UseCase;
 use Kata\Application\DTO\ElectricVehicleDTO;
 use Kata\Application\Command\NavigateElectricVehiclesCommand;
 use Kata\Application\Presenter\ElectricVehiclesListPresenter;
+use Kata\Domain\Exception\DomainException;
 
 interface NavigateElectricVehiclesUseCaseInterface
 {
@@ -14,6 +15,8 @@ interface NavigateElectricVehiclesUseCaseInterface
      * @param NavigateElectricVehiclesCommand $vehiclesCommand
      * @param ElectricVehiclesListPresenter $presenter
      * @return ElectricVehicleDTO[]
+     *
+     * @throws DomainException
      */
     public function navigateVehicles(
         NavigateElectricVehiclesCommand $vehiclesCommand,

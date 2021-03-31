@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Kata\Domain\City\Exception;
 
-class PositionAlreadyInUseException extends \InvalidArgumentException
+use Kata\Domain\Exception\DomainException;
+
+class PositionAlreadyInUseException extends DomainException
 {
 }

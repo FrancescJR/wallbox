@@ -7,17 +7,23 @@ namespace Kata\Infrastructure\Factory;
 use Kata\Application\DTO\ElectricVehicleDTO;
 use Kata\Domain\ElectricVehicle\ElectricVehicle;
 use Kata\Domain\ElectricVehicle\ElectricVehicleFactoryInterface;
+use Kata\Domain\ElectricVehicle\Exception\InvalidElectricVehicleDirectionException;
 use Kata\Domain\ElectricVehicle\ValueObject\ElectricVehicleCityPosition;
 use Kata\Domain\ElectricVehicle\ValueObject\ElectricVehicleDirection;
 
 class ElectricVehicleFactory implements ElectricVehicleFactoryInterface
 {
+    /**
+     * @param ElectricVehicleDTO $evPO
+     * @return ElectricVehicle
+     * @throws InvalidElectricVehicleDirectionException
+     */
     public function createFromPO(ElectricVehicleDTO $evPO): ElectricVehicle
     {
         return new ElectricVehicle(
             new ElectricVehicleCityPosition(
-                (int) $evPO->positionX,
-                (int) $evPO->positionY,
+                (int)$evPO->positionX,
+                (int)$evPO->positionY,
             ),
             new ElectricVehicleDirection(
                 $evPO->direction

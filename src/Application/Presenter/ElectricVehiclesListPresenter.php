@@ -10,6 +10,7 @@ interface ElectricVehiclesListPresenter
 {
     /**
      * @param ElectricVehicleDTO[]
+     * @return array
      */
-    public function write(array $electricVehiclesDTOList): void;
+    public function write(array $electricVehiclesDTOList): array;
 }
