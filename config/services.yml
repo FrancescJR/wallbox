@@ -7,7 +7,7 @@ services:
     class: Kata\Infrastructure\Factory\ElectricVehicleFactory
 
   infrastructure.io.navigate_electric_vehicles_cli:
-    class: Kata\Infrastructure\IO\NavigateElectricVehiclesCLI
+    class: Kata\Infrastructure\CLI\NavigateElectricVehiclesCLI
     arguments:
       - '@application.use_case.navigate_electric_vehicles'
       - '@infrastructure.service.create_command_builder'
@@ -21,7 +21,7 @@ services:
       - '@application.service.create_city'
       - '@infrastructure.factory.electric_vehicle_factory'
       - '@domain.service.deploy_vehicle_in_city'
-      - '@domain.service.move_vehicle_in_city'
+      - '@domain.service.navigate_by_instructions'
 
   domain.service.check_city_position_allowed:
     class: Kata\Domain\Shared\Service\EVCityPositionAllowedService
@@ -36,3 +36,7 @@ services:
     arguments:
       - '@domain.service.check_city_position_allowed'
 
+  domain.service.navigate_by_instructions:
+    class: Kata\Domain\Shared\Service\InterpretNavigationInstructionService
+    arguments:
+      - '@domain.service.move_vehicle_in_city'

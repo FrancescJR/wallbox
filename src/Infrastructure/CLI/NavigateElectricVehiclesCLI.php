@@ -39,9 +39,9 @@ class NavigateElectricVehiclesCLI
             );
 
         } catch (DomainException $e) {
-            echo $e->getMessage();
+            echo "Could not autonavigate: " . $e->getMessage();
         } catch (InfrastructureException $e) {
-
+            echo "Could not process input: " . $e->getMessage();
         }
     }
 }

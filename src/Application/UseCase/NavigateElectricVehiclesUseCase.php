@@ -9,34 +9,32 @@ use Kata\Application\DTO\CarPairInstruction;
 use Kata\Application\DTO\ElectricVehicleDTO;
 use Kata\Application\Presenter\ElectricVehiclesListPresenter;
 use Kata\Application\Service\CreateCityService;
+use Kata\Application\Service\InterpretNavigationInstructionService;
 use Kata\Domain\ElectricVehicle\ElectricVehicleFactoryInterface;
 use Kata\Domain\Exception\DomainException;
 use Kata\Domain\Shared\Service\DeployVehicleInCityService;
-use Kata\Domain\Shared\Service\MoveVehicleInCityService;
 
 class NavigateElectricVehiclesUseCase implements NavigateElectricVehiclesUseCaseInterface
 {
-    public const MOVE = 'M';
-
     private $cityService;
 
     private $electricVehicleFactory;
 
     private $deployVehicleInCityService;
 
-    private $moveVehicleInCityService;
+    private $navigateIncityservice;
 
     public function __construct(
         CreateCityService $cityService,
         ElectricVehicleFactoryInterface $electricVehicleFactory,
         DeployVehicleInCityService $deployVehicleInCityService,
-        MoveVehicleInCityService $moveVehicleInCityService
+        InterpretNavigationInstructionService $navigateIncityservice
     )
     {
         $this->cityService = $cityService;
         $this->electricVehicleFactory = $electricVehicleFactory;
         $this->deployVehicleInCityService = $deployVehicleInCityService;
-        $this->moveVehicleInCityService = $moveVehicleInCityService;
+        $this->navigateIncityservice = $navigateIncityservice;
     }
 
     /**
@@ -65,13 +63,8 @@ class NavigateElectricVehiclesUseCase implements NavigateElectricVehiclesUseCase
 
             $this->deployVehicleInCityService->execute($electricVehicle, $city);
 
-            foreach ($carPairInstruction->instructionSet as $driveInstruction) {
-                if ($driveInstruction === self::MOVE) {
-                    $this->moveVehicleInCityService->execute($electricVehicle, $city);
-                } else {
-                    $electricVehicle->turn($driveInstruction);
-                }
-            }
+            $this->navigateIncityservice->navigateFollowingInstructions($carPairInstruction->instructionSet, $electricVehicle, $city);
+
             $finalVehiclePositions[] = ElectricVehicleDTO::creteFromElectiveVehicle($electricVehicle);
         }
 
