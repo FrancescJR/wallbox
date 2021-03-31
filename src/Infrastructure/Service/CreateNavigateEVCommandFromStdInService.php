@@ -54,11 +54,11 @@ class CreateNavigateEVCommandFromStdInService implements CreateNavigateCommandIn
     private function getCityDTO(string $input):CityDTO
     {
         // TODO check parsing line etc. and throw controlled exceptions
-        $cityLimits = explode(" ", $input);
+        $cityLimits = explode(" ", trim($input));
 
         return new CityDTO(
-            $cityLimits[0],
-            $cityLimits[1]
+            (int) $cityLimits[0],
+            (int) $cityLimits[1]
         );
     }
 
@@ -73,7 +73,7 @@ class CreateNavigateEVCommandFromStdInService implements CreateNavigateCommandIn
     private function getEVDTO(string $carPart): ElectricVehicleDTO
     {
         // TODO check parsing line etc. and throw controlled exceptions
-        $carDeployInformation = explode(" ", $carPart);
+        $carDeployInformation = explode(" ", trim($carPart));
         return new ElectricVehicleDTO(
             (int) $carDeployInformation[0],
             (int) $carDeployInformation[1],

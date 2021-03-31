@@ -13,7 +13,7 @@ class ElectricVehicleDirection
     public const WEST = 'W';
     public const SOUTH = 'S';
 
-    public const DIRECTION_ALLOWED = [
+    public const DIRECTIONS_ALLOWED = [
         self::NORTH,
         self::EAST,
         self::WEST,
@@ -29,8 +29,8 @@ class ElectricVehicleDirection
 
     private function setDirection(string $direction)
     {
-        if (!in_array($direction, self::DIRECTION_ALLOWED)) {
-            throw new InvalidElectricVehicleDirectionException();
+        if (!in_array($direction, self::DIRECTIONS_ALLOWED)) {
+            throw new InvalidElectricVehicleDirectionException("cant turn vehicle in $direction direction.");
         }
         $this->value = $direction;
     }

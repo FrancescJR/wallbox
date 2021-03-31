@@ -51,11 +51,13 @@ class NavigateElectricVehiclesUseCase implements NavigateElectricVehiclesUseCase
 
         /** @var  $instruction  CarPairInstruction */
         foreach ($vehiclesCommand->getCarInstructions() as $carPairInstruction) {
-            $electricVehicle =$this->electricVehicleFactory->createFromPO($carPairInstruction->deployPosition);
+
+            $electricVehicle = $this->electricVehicleFactory->createFromPO($carPairInstruction->deployPosition);
 
             $this->deployVehicleInCityService->execute($electricVehicle, $city);
-            foreach ($carInstruction->instructionSet as $driveInstruction) {
-                if ($instruction === self::MOVE) {
+
+            foreach ($carPairInstruction->instructionSet as $driveInstruction) {
+                if ($driveInstruction === self::MOVE) {
                     $this->moveVehicleInCityService->execute($electricVehicle, $city);
                 } else {
                     $electricVehicle->turn($driveInstruction);

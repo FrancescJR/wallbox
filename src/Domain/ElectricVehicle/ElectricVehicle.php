@@ -47,33 +47,35 @@ class ElectricVehicle
         return $this->direction;
     }
 
-    public function move(): void
+    public function placeCar(ElectricVehicleCityPosition $cityPosition)
+    {
+        $this->cityPosition = $cityPosition;
+    }
+
+
+    public function getFuturePosition(): ElectricVehicleCityPosition
     {
         switch ($this->direction->value()) {
             case ElectricVehicleDirection::NORTH:
-                $this->cityPosition = new ElectricVehicleCityPosition(
+                return new ElectricVehicleCityPosition(
                     $this->cityPosition->getPositionX(),
                     $this->cityPosition->getPositionY() + 1,
                 );
-                break;
             case ElectricVehicleDirection::SOUTH:
-                $this->cityPosition = new ElectricVehicleCityPosition(
+                return new ElectricVehicleCityPosition(
                     $this->cityPosition->getPositionX(),
                     $this->cityPosition->getPositionY() - 1,
                 );
-                break;
             case ElectricVehicleDirection::WEST:
-                $this->cityPosition = new ElectricVehicleCityPosition(
+                return new ElectricVehicleCityPosition(
                     $this->cityPosition->getPositionX() - 1,
                     $this->cityPosition->getPositionY(),
                 );
-                break;
             case ElectricVehicleDirection::EAST:
-                $this->cityPosition = new ElectricVehicleCityPosition(
+                return new ElectricVehicleCityPosition(
                     $this->cityPosition->getPositionX() + 1,
                     $this->cityPosition->getPositionY(),
                 );
-                break;
         }
     }
 

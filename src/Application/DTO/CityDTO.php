@@ -17,7 +17,7 @@ class CityDTO
      */
     public $cityLimitY;
 
-    public function __construct(string $cityLimitX, string $cityLimitY)
+    public function __construct(int $cityLimitX, int $cityLimitY)
     {
         $this->cityLimitX = $cityLimitX;
         $this->cityLimitY = $cityLimitY;

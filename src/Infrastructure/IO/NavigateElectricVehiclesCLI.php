@@ -26,7 +26,13 @@ class NavigateElectricVehiclesCLI
                 $input[]  = $line;
             }
             $navigateCommand = $this->commandBuilder->createNavigateElectricVehiclesCommand($input);
-            $this->navigateElectricVehicles->navigateVehicles($navigateCommand);
+
+            $evEndingPositions = $this->navigateElectricVehicles->navigateVehicles($navigateCommand);
+            /** @var $endingPosition \Kata\Application\DTO\ElectricVehicleDTO */
+            foreach($evEndingPositions as $endingPosition) {
+                echo "printing a car";
+                echo $endingPosition->write();
+            }
         } catch (\Exception $e) {
             echo $e->getMessage();
         }

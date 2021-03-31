@@ -7,27 +7,34 @@ namespace Kata\Domain\Shared\Service;
 use Kata\Domain\City\City;
 use Kata\Domain\City\Exception\PositionAlreadyInUseException;
 use Kata\Domain\City\Exception\VehicleOutOfRangeException;
+use Kata\Domain\City\ValueObject\CityLimit;
 use Kata\Domain\ElectricVehicle\ElectricVehicle;
 
 class MoveVehicleInCityService
 {
-    public function execute(ElectricVehicle $ev, City $city)
+    private $cityPositionAllowedService;
+
+    public function __construct(EVCityPositionAllowedService $cityPositionAllowedService)
     {
-        $ev->move();
+        $this->cityPositionAllowedService = $cityPositionAllowedService;
+    }
 
-        if ($ev->getCityPosition()->getPositionX() > $city->getLimitX()) {
-            throw new VehicleOutOfRangeException("Can't move out of the limits of the city");
-        }
+    public function execute(ElectricVehicle $ev, City $city): void
+    {
+        $futurePosition = $ev->getFuturePosition();
 
-        if ($ev->getCityPosition()->getPositionY() > $city->getLimitY()) {
-            throw new VehicleOutOfRangeException("Can't move out of the limits of the city");
-        }
+        $this->cityPositionAllowedService->execute($futurePosition, $city);
 
         foreach ($city->getVehicles() as $electricVehicleInCity) {
-            if ($electricVehicleInCity->getCityPosition()->getPositionX() == $ev->getCityPosition()->getPositionX() &&
-                $electricVehicleInCity->getCityPosition()->getPositionY() == $ev->getCityPosition()->getPositionY()) {
-                throw new PositionAlreadyInUseException("Can't move on an used position.");
+            if ($electricVehicleInCity === $ev) {
+                continue;
+            }
+            if ($electricVehicleInCity->getCityPosition()->getPositionX() == $futurePosition->getPositionX() &&
+                $electricVehicleInCity->getCityPosition()->getPositionY() == $futurePosition->getPositionY()) {
+                throw new PositionAlreadyInUseException("Can't move on a used position.");
             }
         }
+
+        $ev->placeCar($futurePosition);
     }
 }
